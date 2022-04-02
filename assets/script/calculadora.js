@@ -7,14 +7,17 @@ const operators = document.querySelectorAll('.operator');
 const equals = document.getElementById('equals');
 const clear = document.getElementById('clear')
 const data = document.getElementById('data');
-const error = document.getElementById('error')
+const error = document.getElementById('error');
 
-//Formatear a numero
+//variables
+
+//Funciones
+/////Formatear a numero
 let numFormat = num => new Intl.NumberFormat('cl').format(num);
 
-//Expresiones regulares
-const regExpNumber = /^[+-]?(0|[1-9][0-9]*)$/;
-const regExpOperation = /^[+-]?(0|[1-9][0-9]*)([+-\/\*]{1}(0|[1-9][0-9]*))+$/;
+//Expresiones regulares, los numeros pueden ser negativos
+const regExpNumber = /^(0|[1-9][0-9]*)$/;
+const regExpOperation = /^(0|[1-9][0-9]*)([+-\/\*]{1}(0|[1-9][0-9]*))+$/;
 
 //Eventos
 numbers.forEach(el => {
@@ -22,6 +25,7 @@ numbers.forEach(el => {
     let num = evt.currentTarget.dataset.num;
     let splitPrevStr = data.innerHTML.split('/[+-\/\*]/');
     let lastPrevElement = splitPrevStr[splitPrevStr.length - 1];
+
     //puedo tener 0 pero no 00001, reviso el ultimo elemento el cero es reemplazable
     if (lastPrevElement == '0')
       data.innerHTML = data.innerHTML.slice(0, data.innerHTML.length - 1) + num
@@ -35,11 +39,16 @@ operators.forEach(el => {
     let op = evt.currentTarget.dataset.op;
     let previousStr = data.innerHTML;
     let strLength = previousStr.length;
-    // Si el string es un numero o es una expresion algebraica 
+
+    //La expresion algebraica no puede iniciar con operadores 
+    if (strLength == 0 && (op == '/' || op == '*' || op == '-' || op == '+'))
+      return;
+
+    //Si el string es un numero o es una expresion algebraica 
     if (regExpNumber.test(previousStr) || regExpOperation.test(previousStr))
       data.innerHTML += op
     else
-      //saco el ultimo operador en el string y lo uno al nuevo operador
+      //elimino el ultimo operador en el string y lo uno al nuevo operador
       data.innerHTML = previousStr.slice(0, strLength - 1) + op;
   })
 })
@@ -59,6 +68,6 @@ equals.addEventListener('click', evt => {
 })
 
 clear.addEventListener('click', evt => {
-  data.innerHTML = '';
+  data.innerHTML='';
   error.classList.add("d-none");
 })
