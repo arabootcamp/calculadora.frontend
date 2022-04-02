@@ -51,7 +51,7 @@ equals.addEventListener('click', evt => {
   //data.innerHTML viene sin el =, pero puede venir con un operador en el final por eso validamos.  
   if (regExpNumber.test(data.innerHTML) || regExpOperation.test(data.innerHTML)) {
     error.classList.add("d-none");
-    data.innerHTML = numFormat(eval(data.innerHTML).toFixed(2));
+    data.innerHTML = eval(data.innerHTML).toFixed(2);
   } else {
     error.innerHTML = "Error, ingreso de ejemplo: 5+2*3="
     error.classList.remove("d-none");
