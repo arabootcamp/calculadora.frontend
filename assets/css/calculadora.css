@@ -2,23 +2,42 @@ body {
   font-family: 'Rock Salt', cursive;
 }
 
-.box {
-  width: 18rem;
-  border-radius: 5%;
-}
-
-.visor {
-  min-height: 6rem;
-  background-color: white;
-  margin: 20px;
-}
-
-.in {
-  height: 100%;
-  background-color: tomato;
-}
-
 button {
   width: 3rem;
   height: 3rem;
+  -webkit-box-shadow: 5px 3px 5px 2px #000000;
+  box-shadow: 5px 3px 5px 2px #000000;
 }
+
+.cu-span-error {
+  display: block;
+  width: 100%;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid transparent;
+  border-color: #f5c6cb;
+  font-family: 'Play', sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: end;
+  position: absolute;
+  bottom: 0;
+}
+
+.cu-box {
+  width: 18rem;
+  border-radius: 5%;
+  background-color: #484545;
+  -webkit-box-shadow: 5px 5px 5px 2px #000000;
+  box-shadow: 5px 5px 5px 2px #000000;
+}
+
+.cu-visor {
+  min-height: 6rem;
+  -webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+/*
+shadow
+https://html-css-js.com/css/generator/box-shadow/*/
