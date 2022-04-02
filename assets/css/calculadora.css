@@ -9,19 +9,28 @@ button {
   box-shadow: 5px 3px 5px 2px #000000;
 }
 
-.cu-span-error {
+.cu-span {
   font-family: 'Play', sans-serif;
   display: block;
   width: 100%;
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid transparent;
-  border-color: #f5c6cb;
   font-size: 0.8rem;
   font-weight: bold;
   text-align: end;
   position: absolute;
   bottom: 0;
+  border: 1px solid transparent;
+}
+
+.cu-span--error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+.cu-span--warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
 }
 
 .cu-box {

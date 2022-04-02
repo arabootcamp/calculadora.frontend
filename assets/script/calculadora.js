@@ -7,13 +7,29 @@ const operators = document.querySelectorAll('.operator');
 const equals = document.getElementById('equals');
 const clear = document.getElementById('clear')
 const data = document.getElementById('data');
-const error = document.getElementById('error');
+const info = document.getElementById('info');
 
 //variables
 
 //Funciones
 /////Formatear a numero
-let numFormat = num => new Intl.NumberFormat('cl').format(num);
+const numFormat = num => new Intl.NumberFormat('cl').format(num);
+////Limpiar span
+const infoClean = () => {
+  info.className = '';
+}
+const newExpAlgMsg = c => {
+  //si lo anterior era un resultado, limpio el visor para comenzar otra expresión algebraica
+  if (c == '=') {
+    data.innerHTML = '';
+    infoClean();
+    info.classList.add("cu-span", "cu-span--warning");
+    info.innerHTML = "Iniciando nueva expresión algebraica"
+  } else {
+    infoClean();
+    info.classList.add('d-none')
+  }
+}
 
 //Expresiones regulares, los numeros pueden ser negativos
 const regExpNumber = /^[-]?(0|[1-9][0-9]*)$/;
@@ -22,10 +38,12 @@ const regExpOperation = /^[-]?(0|[1-9][0-9]*)([+-\/\*]{1}(0|[1-9][0-9]*))+$/;
 //Eventos
 numbers.forEach(el => {
   el.addEventListener('click', evt => {
+    //Mensaje si estamos comenzando una nueva expresioón algebraica y atualización data
+    newExpAlgMsg(data.innerHTML[0]);
+
     let num = evt.currentTarget.dataset.num;
     let splitPrevStr = data.innerHTML.split('/[+-\/\*]/');
     let lastPrevElement = splitPrevStr[splitPrevStr.length - 1];
-
     //puedo tener 0 pero no 00001, reviso el ultimo elemento el cero es reemplazable
     if (lastPrevElement == '0')
       data.innerHTML = data.innerHTML.slice(0, data.innerHTML.length - 1) + num
@@ -36,6 +54,9 @@ numbers.forEach(el => {
 
 operators.forEach(el => {
   el.addEventListener('click', evt => {
+    //Mensaje si estamos comenzando una nueva expresioón algebraica y atualización data
+    newExpAlgMsg(data.innerHTML[0]);
+
     let op = evt.currentTarget.dataset.op;
     let previousStr = data.innerHTML;
     let strLength = previousStr.length;
@@ -54,20 +75,23 @@ operators.forEach(el => {
 })
 
 equals.addEventListener('click', evt => {
+  infoClean();
+  info.classList.add('d-none');
 
-  if (data.innerHTML == "")
+  if (data.innerHTML == "" || data.innerHTML[0] == "=")
     return;
   //data.innerHTML viene sin el =, pero puede venir con un operador en el final por eso validamos.  
-  if (regExpNumber.test(data.innerHTML) || regExpOperation.test(data.innerHTML)) {
-    error.classList.add("d-none");
-    data.innerHTML = eval(data.innerHTML).toFixed(2);
-  } else {
-    error.innerHTML = "Error, ingreso de ejemplo: 5+2*3="
-    error.classList.remove("d-none");
+  if (regExpNumber.test(data.innerHTML) || regExpOperation.test(data.innerHTML))
+    data.innerHTML = '= ' + eval(data.innerHTML).toFixed(2);
+  else {
+    info.classList.remove('d-none');
+    info.classList.add("cu-span", "cu-span--error");
+    info.innerHTML = "Error, ingreso de ejemplo: 5+2*3="
   }
 })
 
 clear.addEventListener('click', evt => {
-  data.innerHTML='';
-  error.classList.add("d-none");
+  infoClean();
+  info.classList.add('d-none');
+  data.innerHTML = '';
 })

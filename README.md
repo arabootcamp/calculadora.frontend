@@ -5,6 +5,7 @@ Desafio Sprint Final del Módulo 2 - ***Grupo-03***
  * Para todo número natural
  * Operadores +, - , * , /
  * Debe ingresar operación algebraica válida
+ * Se entiende que una vez dado signo igual finaliza la expresión algebraica y posteriormente puede inciar una desde cero.
 
 ## Pasos Formato de Ingreso
 
