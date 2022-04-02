@@ -16,8 +16,8 @@ const error = document.getElementById('error');
 let numFormat = num => new Intl.NumberFormat('cl').format(num);
 
 //Expresiones regulares, los numeros pueden ser negativos
-const regExpNumber = /^(0|[1-9][0-9]*)$/;
-const regExpOperation = /^(0|[1-9][0-9]*)([+-\/\*]{1}(0|[1-9][0-9]*))+$/;
+const regExpNumber = /^[-]?(0|[1-9][0-9]*)$/;
+const regExpOperation = /^[-]?(0|[1-9][0-9]*)([+-\/\*]{1}(0|[1-9][0-9]*))+$/;
 
 //Eventos
 numbers.forEach(el => {
