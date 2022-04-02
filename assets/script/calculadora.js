@@ -1,0 +1,2 @@
+// Los eventos FrontEnd pueden ser manejados con JavaScript nativo o con Jquery.
+// Integre las operaciones básicas de una calculadora (suma, resta, multiplicación y división) y utilice gráficamente la librería Bootstrap para la visualización de la calculadora.
